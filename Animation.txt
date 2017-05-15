@@ -1,0 +1,13 @@
+import pygame,copy
+class getEntity:
+    def __init__(self,entity,spriteLocation):
+        self.animationList=[]
+        self.entity=pygame.image.load(entity)
+        for animation in spriteLocation:
+            self.animationList.append(self.entity.subsurface(animation))
+entityList=[{},{},{},{}]
+#(Coords, size)
+entityList[0]['Sam']=getEntity('spritesheet.gif',[(135,5,14,19),(153,5,14,19),(172,5,14,19),(135,5,14,19)])
+entityList[1]['Sam']=getEntity('spritesheet.gif',[(62,48,14,19),(27,49,14,19),(44,49,14,19),(62,48,14,19)])
+entityList[2]['Sam']=getEntity('spritesheet.gif',[(138,27,14,19),(122,27,14,19),(104,28,14,19),(52,26,14,19)])
+entityList[3]['Sam']=getEntity('spritesheet.gif',[(188,27,14,19),(204,27,14,19),(221,28,14,19),(274,26,14,19)])

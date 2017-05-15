@@ -1,0 +1,74 @@
+import copy,random,time
+House=[[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+       [1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1],
+       [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+       [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+       [1,0,0,0,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,0,0,0,1],
+       [1,0,0,0,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,0,0,0,1],
+       [1,0,0,0,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,0,0,0,1],
+       [1,0,0,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,0,0,0,1],
+       [1,0,0,1,1,0,1,1,1,1,0,0,1,1,1,0,1,1,1,0,0,0,1],
+       [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+       [1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,1],
+       [1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,1],
+       [1,0,0,0,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,0,0,1],
+       [1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,1],
+       [1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,1,1,1,0,0,1],
+       [1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+       [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+       [1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,1],
+       [1,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1],
+       [1,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1],
+       [1,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1],
+       [1,1,1,1,1,0,1,1,1,1,0,0,0,0,0,0,0,0,1,1,1,1,1],
+       [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]]
+class Map:
+    def __init__(self,Map,Height):
+        self.map=copy.deepcopy(Map)
+        self.height=Height
+    def displayMap(self):
+        print("")
+        for row in range(self.height):
+            print(self.map[row])
+    def traversable(self,Y,X):
+        if (self.map[X][Y]) == 1 or self.map[X][Y]==2:
+            return False
+        else:
+            return True
+    def updateMap(self,People):
+        self.map=copy.deepcopy(House)
+        for person in People:
+            self.map[People[person].PosY][People[person].PosX]=2
+class Entity:
+    def __init__(self,X,Y):
+        self.PosX=X
+        self.PosY=Y
+    def move(self,Map,direction):
+        if direction == 'Up':
+            if Map.traversable(self.PosX,self.PosY-1)==True:
+                self.PosY=self.PosY-1
+            else:
+                return False
+        if direction == 'Down':
+            if Map.traversable(self.PosX,self.PosY+1)==True:
+                self.PosY=self.PosY+1
+            else:
+                return False
+        if direction == 'Left':
+            if Map.traversable(self.PosX-1,self.PosY)==True:
+                self.PosX=self.PosX-1
+            else:
+                return False
+        if direction == 'Right':
+            if Map.traversable(self.PosX+1,self.PosY)==True:
+                self.PosX=self.PosX+1
+            else:
+                return False
+class Program:
+    def __init__(self):
+        self.map=Map(House,len(House))
+        self.People={}
+        self.People['Sam']=Entity(5,8)
+        self.map.updateMap(self.People)
+        self.map.displayMap()
+program=Program()

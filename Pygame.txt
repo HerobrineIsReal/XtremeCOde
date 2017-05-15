@@ -1,0 +1,71 @@
+import pygame
+from MapStuff import *
+from Animation import *
+class visuals:
+    def __init__(self):
+        pygame.init()
+        pygame.mixer.music.load('Blackthorn.mp3')
+        pygame.mixer.music.play()
+        pygame.mixer.music.set_volume(20)
+        size = [384, 320]
+        self.screen = pygame.display.set_mode(size)
+        pygame.display.set_caption('Pokemon Game!')
+        self.background=pygame.image.load('BackgroundV2.png')
+        self.screen.blit(self.background,(0,0))
+        pygame.display.update()
+        self.clock = pygame.time.Clock()
+        self.eventHandle()
+    def eventHandle(self):
+        status = True
+        XPos=97
+        YPos=110
+        delay=0.15
+        self.screen.blit(entityList[1]['Sam'].animationList[0],(XPos,YPos))
+        while status == True:
+            self.clock.tick(50)
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_UP:
+                        if program.People['Sam'].move(program.map,'Up') != False:
+                            for animation in range(4):
+                                time.sleep(delay)
+                                self.screen.blit(self.background,(0,0))
+                                if animation != 0:
+                                    YPos=YPos-5
+                                self.screen.blit(entityList[0]['Sam'].animationList[animation],(XPos,YPos))
+                                pygame.display.update()
+                    if event.key == pygame.K_DOWN:
+                        if program.People['Sam'].move(program.map,'Down') != False:
+                            for animation in range(4):
+                                time.sleep(delay)
+                                self.screen.blit(self.background,(0,0))
+                                if animation != 0:
+                                    YPos=YPos+5
+                                self.screen.blit(entityList[1]['Sam'].animationList[animation],(XPos,YPos))
+                                pygame.display.update()
+                    if event.key == pygame.K_LEFT:
+                        if program.People['Sam'].move(program.map,'Left') != False:
+                            for animation in range(4):
+                                time.sleep(delay)
+                                self.screen.blit(self.background,(0,0))
+                                if animation != 0:
+                                    XPos=XPos-5
+                                self.screen.blit(entityList[2]['Sam'].animationList[animation],(XPos,YPos))
+                                pygame.display.update()
+                    if event.key == pygame.K_RIGHT:
+                        if program.People['Sam'].move(program.map,'Right') != False:
+                            for animation in range(4):
+                                time.sleep(delay)
+                                self.screen.blit(self.background,(0,0))
+                                if animation != 0:
+                                    XPos=XPos+5
+                                self.screen.blit(entityList[3]['Sam'].animationList[animation],(XPos,YPos))
+                                pygame.display.update()
+                    if event.key == pygame.K_ESCAPE:
+                        status=False
+                    pygame.event.clear()
+                    program.map.updateMap(program.People)
+                    program.map.displayMap()
+            pygame.display.update()
+                    
+visuals=visuals()
